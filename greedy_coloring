@@ -1,0 +1,71 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <cstdlib>
+
+using namespace std;
+
+int main()
+{
+
+	int numVertices;
+
+	vector<vector<int> > greedyVertex;
+	vector<int> colors;
+
+	string row;
+
+	ifstream fin;
+	fin.open("petersonGraph.txt");
+
+	if(!fin)
+	{
+		cout << "**********ERROR**********" << endl
+			 << "   File failed to open   " << endl
+			 << "   Terminating program..." << endl;
+
+		system("PAUSE>NUL");
+
+		return 0;
+	}
+
+	fin >> numVertices;
+
+	//Fills colors vector with zero's, initially.
+	for(int k = 0; k < numVertices; k++)
+		colors.push_back(0);
+
+	//fills vector with vertices from graph file.
+	for(int i = 0; i < numVertices; i++)
+	{
+	   vector<int>temp;
+	   int tempVal;
+
+		for(int j = 0; j < numVertices; j++)
+		{
+			fin >> tempVal;
+			temp.push_back(tempVal);
+		}
+
+		greedyVertex.push_back(temp);
+	}
+
+	//Outputs graph in matrix form.
+	for(int k = 0; k < numVertices; k++)
+   {
+		for(int j = 0; j < numVertices; j++)
+         cout << greedyVertex[k][j] << " ";
+
+      cout << endl;
+	}
+
+//	cout << "Colors vector: " << endl;
+
+//	for(int m = 0; m < numVertices; m++)
+//		cout << colors[m] << " ";
+
+	system("PAUSE>NUL");
+
+	return 0;
+}
