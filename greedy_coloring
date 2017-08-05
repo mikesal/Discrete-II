@@ -9,7 +9,8 @@ using namespace std;
 int main()
 {
 
-	int numVertices;
+	int numVertices,
+	vertexColor;
 
 	vector<vector<int> > greedyVertex;
 	vector<int> colors;
@@ -17,7 +18,7 @@ int main()
 	string row;
 
 	ifstream fin;
-	fin.open("petersonGraph.txt");
+	fin.open("squareGraph.txt");
 
 	if(!fin)
 	{
@@ -51,21 +52,35 @@ int main()
 		greedyVertex.push_back(temp);
 	}
 
-	//Outputs graph in matrix form.
-	for(int k = 0; k < numVertices; k++)
-   {
-		for(int j = 0; j < numVertices; j++)
-         cout << greedyVertex[k][j] << " ";
+   //Fills colors vector with Greedily colored vertices.
+	for(int v = 0; v < numVertices; v++)
+	{
+		vertexColor = 1;
 
-      cout << endl;
+		for(int w = 0; w < numVertices; w++)
+			if(greedyVertex[v][w] != 0)
+				if(colors[v] == colors[w])
+					vertexColor++;
+
+		colors[v] = vertexColor;
 	}
 
-//	cout << "Colors vector: " << endl;
+	//Outputs graph in matrix form.
+//   for(int k = 0; k < numVertices; k++)
+//   {
+//	for(int j = 0; j < numVertices; j++)
+//      cout << greedyVertex[k][j] << " ";
+//
+//      cout << endl;
+//   }
 
-//	for(int m = 0; m < numVertices; m++)
-//		cout << colors[m] << " ";
+   cout << "Colors vector: " << endl;
+   //Outputs the final colors vector.
+   for(int m = 0; m < numVertices; m++)
+      cout << colors[m] << " ";
 
-	system("PAUSE>NUL");
+   system("PAUSE>NUL");
 
-	return 0;
+   return 0;
 }
+
